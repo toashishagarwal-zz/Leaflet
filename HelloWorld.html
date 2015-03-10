@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Leaflet example</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<style>
+		#mapOpenWeather {
+			width: 550px;
+			height: 300px;
+		}
+
+		#mapOSM {
+			width: 550px;
+			height: 300px;
+		}
+		#mapMQ {
+			width: 550px;
+			height: 300px;
+		}
+		#mapAddress {
+			width: 550px;
+			height: 300px;
+		}
+		#mapAddressWaterColor {
+			width: 550px;
+			height: 300px;
+		}
+	</style>
+
+	<script type="text/javascript">
+		function init() {
+			var mapOpenWeather = L.map('mapOpenWeather').setView([18.52, 73.95], 5);	
+			L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
+    			attribution: 'Map data © OpenWeatherMap',
+			    maxZoom: 9
+			}).addTo(mapOpenWeather);
+
+			
+			var mapOSM = L.map('mapOSM').setView([18.52, 73.95], 12);
+			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+				maxZoom: 14
+			}).addTo(mapOSM); 	
+					
+			// World Map				
+			var mapMQ = L.map('mapMQ').setView([18.52, 73.95], 13);		 
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+    			attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+    			subdomains: ['otile1','otile2','otile3','otile4']
+			}).addTo(mapMQ);
+
+			mapMQ.fitWorld().zoomIn();
+
+			// Show markers on the map
+			var markers = [
+			   {
+			     "name": "London",
+			     "url": "https://en.wikipedia.org/wiki/London",
+			     "lat": 51.507351,
+			     "lng": -0.127758
+			   },
+			   {
+			     "name": "Milton Keynes",
+			     "url": "http://en.wikipedia.org/wiki/Milton_Keynes",
+			     "lat": 52.040774,
+			     "lng": -0.758324
+			   },
+			   {
+			     "name": "San Francisco",
+			     "url": "http://en.wikipedia.org/wiki/San_Francisco",
+			     "lat": 37.77493,
+			     "lng": -122.419416
+			   }, 
+			   {
+			     "name": "San Jose",
+			     "url": "http://en.wikipedia.org/wiki/San_Jose,_California",
+			     "lat": 37.333596,
+			     "lng": -121.890704
+			   },
+			   {
+			     "name": "Las Vegas",
+			     "url": "http://en.wikipedia.org/wiki/Las_Vegas",
+			     "lat": 36.169941,
+			     "lng": -115.13983
+			   },
+			   {
+			     "name": "New York",
+			     "url": "http://en.wikipedia.org/wiki/New_York",
+			     "lat": 40.712784,
+			     "lng": -74.005941
+			   },
+			   {
+			     "name": "New Jersey",
+			     "url": "http://en.wikipedia.org/wiki/New_Jersey",
+			     "lat": 40.058324,
+			     "lng": -74.405661
+			   },
+			   {
+			     "name": "Pune",
+			     "url": "http://en.wikipedia.org/wiki/Pune",
+			     "lat": 18.52043,
+			     "lng": 73.856744
+			   },
+			   {
+			     "name": "Mumbai",
+			     "url": "http://en.wikipedia.org/wiki/Mumbai",
+			     "lat": 19.075984,
+			     "lng": 72.877656
+			   },
+			   {
+			     "name": "Bangalore",
+			     "url": "http://en.wikipedia.org/wiki/Bangalore",
+			     "lat": 12.971599,
+			     "lng": 77.594563
+			   },
+			   {
+			     "name": "Nashik",
+			     "url": "http://en.wikipedia.org/wiki/Nashik",
+			     "lat": 19.997453,
+			     "lng": 73.789802
+			   },
+			   {
+			     "name": "Goa",
+			     "url": "http://en.wikipedia.org/wiki/Goa",
+			     "lat": 15.299327,
+			     "lng": 74.123996
+			   },
+			   {
+			     "name": "Gangapur City, RJ",
+			     "url": "http://en.wikipedia.org/wiki/Gangapur,_Sawai_Madhopur",
+			     "lat": 26.47171,
+			     "lng": 76.71594
+			   },   
+			   {
+			     "name": "New Delhi",
+			     "url": "http://en.wikipedia.org/wiki/New_Delhi",
+			     "lat": 28.632244,
+			     "lng": 77.220724
+			   },
+			   {
+			     "name": "Miami, FL",
+			     "url": "http://en.wikipedia.org/wiki/Miami",
+			     "lat": 25.76168,
+			     "lng": -80.19179
+			   }
+			];
+			for ( var i=0; i < markers.length; ++i ) {
+			   L.marker( [markers[i].lat, markers[i].lng], { title: 'Hover Text' } )
+			      .bindPopup( '<a href="' + markers[i].url + '" target="_blank">' + markers[i].name + '</a>' )
+			      .addTo( mapMQ );
+			}
+
+
+			// My Address			
+			var mapMQagain = L.map('mapAddress').setView([18.52, 73.98], 13);	 
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+    			attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+    			subdomains: ['otile1','otile2','otile3','otile4']
+			}).addTo(mapMQagain);
+
+
+			// Example WaterColor
+			var mapMQWaterColor = L.map('mapAddressWaterColor').setView([18.52, 73.98], 13);	 
+			L.tileLayer( 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {
+				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+						subdomains: 'abcd',
+						minZoom: 1,
+						maxZoom: 16
+			}).addTo(mapMQWaterColor);
+
+			L.marker( [18.52, 73.98], { title: 'My Address' } )
+				.addTo(mapMQWaterColor);
+			
+
+
+		}
+
+	</script>
+</head>
+<body onload="javascript:init();">
+	<table>
+		<thead>
+			<tr>
+				<th>Leaflet Maps Example</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Weather Map <br>
+					<div id="mapOpenWeather"></div>
+				</td>
+				<td>
+					Open Street Map <br>
+					<div id="mapOSM"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Places I have visited using Map Quest<br>
+					<div id="mapMQ"></div>
+				</td>
+				<td>	 
+					Where I stay using Map Quest <br>
+					<div id="mapAddress"></div>				
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Where I stay using Map Quest<br>
+					<div id="mapAddressWaterColor"></div>
+				</td>
+				<td>	 	
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

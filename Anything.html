@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Leaflet example</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<style>
+		#map {
+			width: 550px;
+			height: 300px;
+		}
+	</style>	
+
+	<script type="text/javascript">
+	function init() {
+		var mapOSM = L.map('map').setView([18.52, 73.95], 12);
+			
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+				maxZoom: 14
+			}).addTo(mapOSM); 
+
+		L.marker([18.52, 73.95], { title: 'Hover Text' } )
+			      .addTo( mapOSM );
+	}
+	</script>	
+</head>
+<body onload="javascript:init();">
+<div id="map"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

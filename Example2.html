@@ -1,0 +1,39 @@
+<html>
+<head>
+   <title>OSM map - local leaflet</title>   
+   <!--
+   Point at local js & CSS
+   This assumes there's a directory 'leaflet' alongside this HTML (*download* and unzip leaflet)
+   -->
+   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+   <!-- [if lte IE 8]><link rel="stylesheet" href="leaflet/leaflet.ie.css" /><![endif] -->
+  
+   <style>
+   #map { height: 180px; }
+   </style>
+   
+   <script language="javascript">
+      function init() {
+      	 var map = L.map('map').setView([51.505, -0.09], 13);
+      	  
+      	 //add a tile layer to add to our map, in this case it's the 'standard' OpenStreetMap.org tile server
+      	 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            maxZoom: 18
+         }).addTo(map);
+
+         map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text. Attribution overload
+
+         var london = new L.LatLng(51.505, -0.09); // geographical point (longitude and latitude)
+         map.setView(london, 13).addLayer(cloudmade);
+      }
+   </script>
+   
+</head>
+<body onLoad="javascript:init();">
+   <div id="map"></div>
+   
+</body>                                                                                                                          
+</html>
+    
